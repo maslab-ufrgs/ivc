@@ -13,16 +13,17 @@ class StatsWriter(object):
 
     outFile = None#the output outFile to write stats into
     
-    def __init__(self, filename, mode = 'w'):
+    def __init__(self, filename, mode = 'a'):
         '''
         Constructor
         '''
-        self.outFile = open(filename, 'w')
+        self.outFile = open(filename, mode)
     
     def writeLine(self, dataName, collection, attrCall, separator = ','):
         '''
         Writes dataName as the first column, then traverses the collection, 
         calling attrCall() and writing it separated by 'separator' parameter
+        
         '''
         line = str(dataName) + separator
         

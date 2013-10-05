@@ -7,9 +7,12 @@ Created on 05/10/2012
 import sys, logging
 from optparse import OptionParser, OptionGroup
 from iterations import Iterations
+import configparser
 
 def readOptions(argv):
-    """Reads and verifies command line options.
+    """
+    Reads and verifies command line options.
+    
     """
     parser = OptionParser()
     registerOptions(parser)
@@ -21,7 +24,10 @@ def readOptions(argv):
 
     
 def registerOptions(parser):
-    """Registers the options used in the experiment"""
+    """
+    Registers the options used in the experiment
+    
+    """
     parser.add_option(
       '-p', '--port', dest='port', type='int',
       default = Iterations.DEFAULT_PORT,
@@ -29,15 +35,15 @@ def registerOptions(parser):
     )
     
     parser.add_option(
-        '-r', '--route-files', dest='routeFiles',
+        '-r', '--route-files', dest='maindemand',
         help='files defining the main drivers, the ones participating in the experiment',
         type='string', default=[], action='callback',
-        callback=_parse_list_to('routeFiles'),
+        callback=_parse_list_to('maindemand'),
         metavar='FILES'
     )
     
     parser.add_option(
-      '-n','--net-file', dest='netFile', type='string',
+      '-n','--net-file', dest='netfile', type='string',
       default=None, help = 'the .net.xml file with the network definition'
     )
     
@@ -52,22 +58,22 @@ def registerOptions(parser):
     )
     
     parser.add_option(
-      '-w','--warm-up-time', dest='warmUpTime', type='int',
+      '-w','--warm-up-time', dest='warmuptime', type='int',
       default=0, help = 'the number of timesteps needed to the road network achieve a steady state'
     )
     
     parser.add_option(
-      '-a','--aux-demand', dest='auxiliaryDemand', type='string',
+      '-a','--aux-demand', dest='auxdemand', type='string',
       default=None, help = '.rou.xml file with the auxiliary demand to populate the road network'
     )
     
     parser.add_option(
-      '-o','--output-prefix', dest='output', type='string',
+      '-o','--outputprefix', dest='outputprefix', type='string',
       default=None, help = 'prefix of output files to be written with the statistics'
     )
     
     parser.add_option(
-        "-g", "--gui", action="store_true",
+        "-g", "--usegui", action="store_true",
         default=False, help="activate graphical user interface"
     )
     
@@ -76,13 +82,17 @@ def registerOptions(parser):
         default=False, help="whether the malicious agents will not be cooperative among themselves"
     )
     
-    parser.add_option(
-        "--range", type="int",
-        default=200, help="The communication range"
+    parser.add_option('-c','--config-file',
+        default=None, help="loads experiment configuration from a file"
     )
     
     parser.add_option(
-        "--cheat", type="int",
+        "--commrange", type="int",
+        default=200, help="The communication commrange"
+    )
+    
+    parser.add_option(
+        "--cheatvalue", type="int",
         default=None, help="The value that cheater will tell others. Default: 3 x free-flow travel time"
     )
     
@@ -121,10 +131,12 @@ def registerOptions(parser):
 
 
 def initOptions(options):
-        """Initializes the command-line options.
+        """
+        Initializes the command-line options.
         
         All attributes initialized are directly from
         the command line options added by __registerOptions.
+        
         """
         # Initialize logging
         if options.logStdout:
@@ -141,17 +153,17 @@ def initOptions(options):
         
         # Initialize the port and road network, if a network file was supplied
 #        self.port = options.port or Iterations.DEFAULT_PORT
-#        self.auxDemandFile = options.auxiliaryDemand
-#        self.netFile = options.netFile
-#        self.activateGui = options.gui
+#        self.auxDemandFile = options.auxdemand
+#        self.netfile = options.netfile
+#        self.activateGui = options.usegui
         
         
 def checkOptions(options, args, parser):
-    if len(options.routeFiles) == 0:
-        parser.error('At least one route file is required, none was given.')
+#    if len(options.maindemand) == 0:
+#        parser.error('At least one route file is required, none was given.')
     
-    if options.netFile is None:
-        parser.error('Network file required.')
+#    if options.netfile is None:
+#        parser.error('Network file required.')
 
     # Only one of the logging output options may be used at a time
     if len( filter(None, (options.logFile, 
@@ -167,7 +179,8 @@ def checkOptions(options, args, parser):
         
         
 def _parse_list_to(dest):
-    """Creates a callback to parse a comma-separated list into dest.
+    """
+    Creates a callback to parse a comma-separated list into dest.
 
     The returned function can be used as a callback for an
     OptionParser, and it takes the string value and splits
@@ -175,6 +188,7 @@ def _parse_list_to(dest):
 
     The resulting list is assigned to the attribute of the
     options object, identified by dest.
+    
     """
     def callback(options, opt_str, value, parser):
         setattr(parser.values, dest, value.split(','))
@@ -188,22 +202,36 @@ if __name__ == '__main__':
     
     logger = logging.getLogger(Iterations.LOGGER_NAME)
     logger.info('Finished parsing command line parameters.')
+    if options.config_file:
+        cfg = configparser.ConfigParser(options.config_file)
+    else:
+        cfg = options
     
     experiment = Iterations(
-        options.netFile, 
-        options.routeFiles, 
-        options.auxiliaryDemand, 
-        options.output,
-        options.port, 
-        options.gui, 
-        options.iterations, 
-        options.warmUpTime,
-        options.uncoordinated,
-        options.range,
-        options.beta,
-        options.cheat,
-        options.ivcfreq
+        cfg.netfile, 
+        cfg.maindemand, 
+        cfg.auxdemand, 
+        cfg.outputprefix,
+        cfg.port, 
+        cfg.usegui, 
+        cfg.iterations,
+        cfg.first_iter, 
+        cfg.warmuptime,
+        cfg.warmupload,
+        cfg.uncoordinated,
+        cfg.commrange,
+        cfg.beta,
+        cfg.cheatvalue,
+        cfg.ivcfreq,
+        cfg.nogamma,
+        cfg.summary_prefix,
+        cfg.routeinfo_prefix,
+        cfg.mal_strategy,
+        cfg.use_lk,
+        cfg.sumopath
     )
-    
-    experiment.run()
+    #self.coordinated = True
+    #self.sumopath = None
+    #print cfg.first_iter
+    experiment.run(cfg.first_iter)
     

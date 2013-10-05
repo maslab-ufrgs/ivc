@@ -7,6 +7,7 @@ from drivers import StandardDriver
 import subprocess
 from statistics.statswriter import StatsWriter
 from overloadcontrol import OverloadControl, AuxiliaryOverloadControl
+import loadkeeper
 #from src.overloadcontrol import AuxiliaryOverloadControl
 
 #looks up on ../lib to import Guilherme's implementation of Dijkstra algorithm
@@ -16,8 +17,10 @@ if not path in sys.path: sys.path.append(path)
 from search import dijkstra
 
 class Iterations(object):
-    """Iterations object.
-    """
+    '''
+    Runs the iterations, write out statistics, etc.
+    
+    '''
     
     DEFAULT_LOG_FILE = 'experiment.log'
     LOGGER_NAME = 'experiment'
@@ -54,8 +57,10 @@ class Iterations(object):
     
     
     def __init__(self, netFile, mainDrvFiles, auxDemandFile, output, port, gui,
-                  iterations, warmUpTime, mua = False, delta = 200, beta = 15, cheat = None,
-                  ivcfreq = 2, nogamma = False):
+                  iterations, first_iter, warmUpTime, warmUpLoad, mua = False, delta = 200, beta = 15, cheat = None,
+                  ivcfreq = 2, nogamma = False, summary_output = None, routeinfo_output = None,
+                  mal_strategy = None, use_lk = False, sumoPath = None):
+        
         self.logger = logging.getLogger(self.LOGGER_NAME)
         self.netFile = netFile
         
@@ -68,13 +73,19 @@ class Iterations(object):
         self.mua = mua
         
         self.port = port
+        self.summary_output = summary_output
+        self.routeinfo_output = routeinfo_output
         
         self.commRange    = delta
         self.cheatNumber  = cheat
         self.beta         = beta
         self.ivcfreq      = ivcfreq
         self.nogamma      = nogamma
-           
+        self.mal_strategy = mal_strategy
+        
+        self.sumo_path = sumoPath
+        self.use_lk = use_lk
+        
         try:
             self.roadNetwork = sumolib.net.readNet(netFile)
         except IOError as err:
@@ -84,7 +95,8 @@ class Iterations(object):
         
         #TODO: parametrize 900 and ctrl
         #self.overloadControl = AuxiliaryOverloadControl(700, 'ctrl')
-        self.overloadControl = OverloadControl(900, 'ctrl')
+        self.overloadControl = OverloadControl(warmUpLoad, 'ctrl')
+        self.loadkeeper = loadkeeper.LoadKeeper(self.roadNetwork, None, 'ctrl')
         
         self.drivers = Drivers(mainDrvFiles, self.roadNetwork)
         
@@ -122,34 +134,46 @@ class Iterations(object):
         else:
             self.stats = []
         
-        
-        
-        
         #initializes drivers knowledge base
         for d in self.drivers.getDriverList():
             for l in self.roadNetwork.getEdges():
                 #initializes travel time optimistically as the FFTT
                 self.infoAge[d.getId()][l.getID()] = sys.maxsize
                 self.knownTT[d.getId()][l.getID()] = l.getLength() / l.getSpeed() #* 1000 / l.getLaneNumber()
-        #dump_matrix(self.infoAge)
-        #dump_matrix(self.knownTT)        
-        
+                
+            d.setKnownTT(self.knownTT[d.getId()])
+            d.setInfoAges(self.infoAge[d.getId()])
+            
+            
     def calculateRoutes(self,tripNo):
-        """
+        '''
         Calculates routes and adds vehicles in SUMO for each driver.
         Also, records the links used by the self-interested fleet
-        """
+        
+        '''
         currentTs = traci.simulation.getCurrentTime() / 1000
-        self.fleetLinks = [] #resets the list of links used by the fleet
+        self.fleetLinks = {} #resets the list of links used by the fleet
+        
+        for d in self.drivers.getDriverList():
+            if d.isFromFleet():
+                self.fleetLinks[d.fleetID()] = []
+                #print '%s fleet ID is %s' % (d.getId(), d.fleetID())
+                #print 'Fleet links init: %s' % self.fleetLinks 
+                
         for d in self.drivers.getDriverList():
             
-            routeID = d.getId() + '_' + str(tripNo)
+            weight_function = lambda edge: self.knownTT[d.getId()][edge.getID()]
+            
+            if d.isFromFleet() and self.mal_strategy == 'shortest-path':
+                weight_function = lambda edge: 1.0 / edge.getLaneNumber()
+            
+            routeID = d.getId() + '_' + str(tripNo) #cannot use d.getTraciId() because it isn't updated yet
             try:
                 route = dijkstra(
                     self.roadNetwork, 
                     self.roadNetwork.getEdge(d.getOrigin()), 
                     self.roadNetwork.getEdge(d.getDestination()),
-                    lambda edge: self.knownTT[d.getId()][edge.getID()] #need to make sure lambda is OK
+                    weight_function #need to make sure lambda is OK
                 )
             except KeyError as k:
                 self.logger.error('Tried to route on non-existing edge:' + str(k))
@@ -158,7 +182,8 @@ class Iterations(object):
                 exit()
             #need to add the vehicles before, right?
             edges = [edge.getID().encode('utf-8') for edge in route]
-            
+#            if d.isFromFleet():
+#                print d.getId(), edges, [weight_function(self.roadNetwork.getEdge(e)) for e in edges]
             traci.route.add(routeID, edges)
             #traci.vehicle.setRoute(d.getId(), edges)
             traci.vehicle.add(
@@ -166,47 +191,62 @@ class Iterations(object):
                 StandardDriver.DEPART_POS, 0
             )
             
-            #self.logger.info(d.getId() + "'s route: [" + ", ".join(edges) + ']')
             
             #adds the route links to the list of fleet links if the driver belongs to the fleet
             if d.isFromFleet():
-                self.fleetLinks += [l.getID() for l in route]
+                
+                self.fleetLinks[d.fleetID()] += [l.getID() for l in route]
+                #removes duplicates
+                self.fleetLinks[d.fleetID()] = list(set(self.fleetLinks[d.fleetID()]))
+                
+                #print 'Fleet links added, result: %s' % self.fleetLinks 
             
-            #removes duplicates
-            self.fleetLinks = list(set(self.fleetLinks))
-            #self.logger.info("Links belonging to the fleet:")
-            #self.logger.info([l.getID() for l in self.fleetLinks])
+    def evaluate_edge(self, edge, driver):
+        return driver.knownTT(edge.getID())
             
-    def evaluate_edge(self,edge,driver):
-        return self.knownTT[driver.getId()][edge.getID()]
-            
-    def run(self):
+    def run(self, first_iter):
         '''
         Performs the simulation iterations. It calls SUMO, warms up the network, 
         launches the main drivers and writes their statistics
+        
         '''
-        
-        
+        #print first_iter
         #sumoPath = options.sumopath if options.sumopath is not None else ''
-        sumoExec = 'sumo-gui' if self.activateGui else 'sumo'
-        sumoCmd = '%s -n %s --remote-port %d' % \
-            (sumoExec, self.netFile, self.port)
-            
-        if self.auxDemandFile is not None:
-            sumoCmd += ' -r ' + self.auxDemandFile
-        
-        self.logger.info('SUMO will be called with: %s' % sumoCmd)
         
         #writes the headers into the output files
-        for stats in self.stats:
-            stats['writer'].writeLine('x', self.drivers.getDriverList(), 'getId')
-            stats['writer'].writeLine('type', self.drivers.getDriverList(), 'getType')
+        if first_iter == 1:
+            #writes the headers in first iteration
+            for stats in self.stats:
+                stats['writer'].writeLine('x', self.drivers.getDriverList(), 'getId')
+                stats['writer'].writeLine('type', self.drivers.getDriverList(), 'getType')
+        else:
+            #loads drivers data from the last iteration
+            print 'Loading driver data...'
+            self.drivers.load_known_travel_times('drvdata_tt_%d.csv' % (first_iter - 1) )
+            self.drivers.load_info_ages('drvdata_age_%d.csv' % (first_iter - 1) )
         
-        for i in range(0,self.iterations):
+        for i in range(first_iter - 1, self.iterations):
+            sumoExec = 'sumo-gui' if self.activateGui else 'sumo'
             
-            self.logger.info('Starting SUMO...')
+            if self.sumo_path is not None:
+                sumoExec = self.sumo_path + sumoExec
+            
+            sumoCmd = '%s -n %s --remote-port %d' % \
+                (sumoExec, self.netFile, self.port)
+            
+            if self.auxDemandFile is not None:
+                sumoCmd += ' -r ' + self.auxDemandFile
+                
+            if self.summary_output is not None:
+                sumoCmd += ' --summary-output %s%d.xml' % (self.summary_output, i+1)
+                
+            if self.routeinfo_output is not None:
+                sumoCmd += ' --vehroute-output %s --vehroute-output.exit-times' %\
+                (self.routeinfo_output + '%d.xml' % (i+1))
+                
+            self.logger.info('SUMO will be called with: %s' % sumoCmd)
+            
             subprocess.Popen(['nohup'] + sumoCmd.split(' '))
-            #self.logger.info('SUMO started...')
             
             self.logger.info('Connecting with TraCI server...')
             traci.init(self.port)
@@ -218,11 +258,13 @@ class Iterations(object):
             for stats in self.stats:
                 stats['writer'].writeLine(i+1, self.drivers.getDriverList(), stats['attr'])
             
-            #self.logger.info('Statistics written')
-                
             traci.close()
             self.logger.info('TraCI connection closed.')
             self.logger.info('Waiting for SUMO to be terminated...')
+            self.logger.info('Writing driver data...')
+            
+            self.drivers.save_known_travel_times('drvdata_tt_%d.csv' % (i+1) )
+            self.drivers.save_info_ages('drvdata_age_%d.csv' % (i+1) )
             
             #WAIT(SUMO)
             self.logger.info('Iteration #%d finished.' % (i + 1))
@@ -244,30 +286,61 @@ class Iterations(object):
         
         self.logger.info('Warm-up started. Aux. demand control is activated')
         for i in range(0, self.warmUpTime):
+            start = time()
             traci.simulationStep()
             self.overloadControl.act()
-        self.logger.info('Warm-up finished. %d timesteps executed' % self.warmUpTime)
+            if self.use_lk: 
+                self.loadkeeper.act()
+                
+            num_veh = len(traci.vehicle.getIDList())
+                
+            sys.stdout.write( "\rWarm-up step #%d took %5.3f ms. %6d vehicles in network" % (i+1,  time() - start, num_veh) )
+            sys.stdout.flush()
+        self.logger.info('\nWarm-up finished.')
             
     def iteration(self, i):
-        
+        sys.stdout.write('\tcalculating routes...')
+        sys.stdout.flush()
         self.calculateRoutes(i)
+        print ' done'
+        
+        sys.stdout.write('\tpreparing for trip...')
+        sys.stdout.flush()
+        #print 'ID list:', traci.vehicle.getIDList()
         for d in self.drivers.getDriverList():
             d.prepareForTrip(i,self.knownTT[d.getId()]) 
             #d.debug()
-            
+        print ' done'
         
-
+        
         while not self.drivers.allArrived():
             start = time()
             traci.simulationStep()
             ts = traci.simulation.getCurrentTime() / 1000
-        
+            
+            #sov = time()
             self.overloadControl.act()
-            #print timesteps
+            #print 'Sov: %5.3f' % (time() - sov)
+            
+            if self.use_lk: 
+                self.loadkeeper.act()
+            
+            #chk_stats = time()
+            arrivedList = traci.simulation.getArrivedIDList()
+#            myArrivedList = list(set(arrivedList).intersection(set([d.getTraciId() for d in self.drivers.getDriverList()])))
+#            for d in myArrivedList:
+#                
+            #print arrivedList, traci.simulation.getDepartedIDList(), traci.vehicle.getIDList(), traci.simulation.getLoadedIDList()
+            #print 'routes:', [traci.route.getEdges(rid) for rid in traci.route.getIDList()]
+            
             for d in self.drivers.getDriverList():
-                
+                if d.getTraciId() in arrivedList:
+                    d.tripFinished = True 
+                    d.currentLink = None
+                    #print '%s has finished its trip' % d.getId()
+                    
                 #check: will it update link status upon arrival??
-                d.updateStatus()
+                d.updateStatus(self.commRange, ts)
                 #d.debug()
                 
                 #makes all information in Knowledge Base get older
@@ -275,157 +348,241 @@ class Iterations(object):
                     for l in self.roadNetwork.getEdges():
                         self.infoAge[d.getId()][l.getID()] = self.infoAge[d.getId()][l.getID()]  + 1
                 
-                #print self.knownTT[self.drivers.getDriverList()[0].getId()]
-                #print d.getId(),'-',self.knownTT[d.getId()]
                 if d.changedLink():
-                    #self.logger.info('Driver ' + d.getId() + ' changed link.')
-                    #print 'Last TT, lastLink', d.lastTT(),',', d.lastLinkId()
                     
                     #prevents the insertion of key 'None' in knowledge base
                     if d.lastLinkId() is not None and d.lastLinkId() != '':
-                        self.knownTT[d.getId()][d.lastLinkId()] = d.lastTT()
+                        self.knownTT[d.getId()][d.lastLinkId()] = d.lastTT() / 1000
                         self.infoAge[d.getId()][d.lastLinkId()] = 0
-                    
+                
+            #print 'chk_stats: %5.3f' % (time() - chk_stats)        
                 #d.debug()
-                #print d.traversedTripLinks(), d.remainingTripLinks()
-                #print d.onTrip(), d.remainingTripLinks()
-            #print 'Building msgs...'        
-            self.buildMessages()
-            #print 'Done.'
-            #self.__debugMessages()
-            #test if ivc is working
-            #print 'be4 ivc:'
-            
-            #dump_matrix(self.knownTT, sys.stdout)
             #print 'Starting IVC...'
             if ts % self.ivcfreq == 0: #performs IVC every X timesteps
-                self.interVehicularCommunication()
-            #print 'Done.'
-            #debugMatrixPair(self.knownTT, self.infoAge)
-            #print 'after ivc:'
-            #dump_matrix(self.knownTT, sys.stdout)
-#                    if REPLAN_CONDITIONS:
-#                        d.replan()
-
-            self.replanRoutes()
+                #print 'Building msgs...'
+                msg = time()        
+                self.buildMessages()
+                #print ' msg: %5.3f' % (time() - msg)
+                #print 'Done.'
+                ivc = time()
+                self.interVehicularCommunication(ts)
+                #print ' ivc: %5.3f' % (time() - ivc)
+                #print 'Done.'
+                rpl = time()
+                self.replanRoutes()
+                #print ' rpl: %5.3f' % (time() - rpl)
             
             sys.stdout.write( "\rIteration %d's timestep #%d took %5.3f ms" % (i+1, ts, time() - start))
             sys.stdout.flush()
+            
+#            if ts > 2000:
+#                for d in traci.vehicle.getIDList():
+#                    if 'ctrl' in d:
+#                        print d, 'is lost in edge', traci.vehicle.getLaneID(d)
             #timesteps += 1
-        #dump_matrix(self.knownTT)
-        #dump_matrix(self.infoAge)
         self.logger.info('Trip #' + str(i) + ' finished.')
-        #self.logger.info([(d.getId(), d.currentTravelTime()) for d in self.drivers.getDriverList()])
             
     def buildMessages(self):
-        """
+        '''
         Builds the messages to be exchanged in this step. 
-        """
-        #print [l for l in self.fleetLinks]
+        
+        '''
+        #print self.fleetLinks
+        
         for d in self.drivers.getDriverList():
-            #skips the drivers with no IVC
-            if not d.isIvcCapable(): 
+            #skips the drivers with no IVC or not on trip
+            if not d.isIvcCapable() or not d.onTrip(): 
                 continue
             
-            for l in self.roadNetwork.getEdges():
-                
-                #sets the msg element accordingly
-                self.msgTT[d.getId()][l.getID()] = self.knownTT[d.getId()][l.getID()]
-                
-                if d.isFromFleet():
-                    interestSet = d.getRoute() if self.mua else self.fleetLinks
-                    #reports false information on the links belonging to the set of interest
-                    if l.getID() in interestSet:
-                        
-                        if self.cheatNumber is None:
-                            cheat = (3.0 * l.getLength()) / l.getSpeed() #float division?
-                        else:
-                            cheat = self.cheatNumber
-                        
-                        self.msgTT[d.getId()][l.getID()] = cheat
-                        self.infoAge[d.getId()][l.getID()] = 0
+            d.build_message(self.fleetLinks, self.mua, self.cheatNumber)
+#            continue
+#        
+#            if d.isFromFleet():
+#                interestSet = d.getRoute() if self.mua else self.fleetLinks[d.fleetID()]
+#                #print '%s interest set is %s' % (d.getId(), interestSet)
+#                
+#            for l in self.roadNetwork.getEdges():
+#                
+#                #sets the msg element accordingly
+#                self.msgTT[d.getId()][l.getID()] = self.knownTT[d.getId()][l.getID()]
+#                
+#                if d.isFromFleet():
+#                    
+#                    #reports false information on the links belonging to the set of interest
+#                    if l.getID() in interestSet:
+#                        
+#                        if self.cheatNumber is None:
+#                            cheat = (3.0 * l.getLength()) / l.getSpeed() #float division? --yes
+#                        else:
+#                            cheat = self.cheatNumber
+#                        #print '\tCheating about %s. False info: %s' % (l.getID(), cheat)
+#                        self.msgTT[d.getId()][l.getID()] = cheat
+#                        self.infoAge[d.getId()][l.getID()] = 0
                         #mwahahaha
                     
-    def interVehicularCommunication(self):
-        """
+    def interVehicularCommunication(self, curr_time):
+        '''
         Performs the message exchanging procedure
-        """
+        
+        '''
+        #print ' Performing IVC...'
         for d in self.drivers.getDriverList():
             #skips the drivers with no IVC and the ones that arrived
             if not d.onTrip() or not d.isIvcCapable():
+                #print '(OnTrip, IVC-capable): (%s, %s)' % (d.onTrip(), d.isIvcCapable())
                 continue
-            
-            #print ("Driver " + d.getId() + " receiving messages.")
-            #print "In range:",[e.getId() for e in self.drivers.getIvcDriversInRange(d,self.commRange)]
-#            if d.getId() == 'ctrl106':
-#                print [c.getId() for c in self.drivers.getIvcDriversInRange(d,self.commRange)]
-                
-            for c in self.drivers.getIvcDriversInRange(d,self.commRange):
-                
-                #print c.getId(),'is in',d.getId(),'\'s range'
-                for l in self.roadNetwork.getEdges():
-                    #d will use c's information only if it is newer than his 
-                    if self.infoAge[c.getId()][l.getID()] >= self.infoAge[d.getId()][l.getID()]:
+
+            #print ' Searching neighbors...'
+            neighbors = self.drivers.getIvcDriversInRange(d, self.commRange)
+            #print ' %s neighbors: %s' % (d.getId(), len(neighbors) ) #[c.getId() for c in neighbors])
+            for c in neighbors:
+                #if d already exchanged messages with c...
+                #print '\t\t%s ' % d.last_comm_time
+                if c.getId() in d.last_comm_time:
+                    time_since_last_comm = curr_time - d.last_comm_time[c.getId()]
+                    #...and if c has no newer information since last comm, skips message from c
+                    #also skips c if its newest info is older than 20 minutes
+                    if  time_since_last_comm <= c.newest_info_age or c.newest_info_age > 1200 :
+                        #print '\t%s disregarded' % c.getId()
                         continue
+                #print '\t%s regarded' % c.getId()
+                #sets the time of message receipt from c
+                d.last_comm_time[c.getId()] = curr_time
+                
+                for l in c.message:# self.roadNetwork.getEdges():
+                    #d will use c's information only if it is newer than his
+                    #c_kb = self.knownTT[c.getId()]
+                    #c_age= self.infoAge[c.getId()] 
+                    #continue
+                    link_id = l#.getID()
+                    the_link = self.roadNetwork.getEdge(l)
+                    #if c.info_age(link_id) > 10:    #dbg
+                    #    continue                    #dbg
                     
+                    if c.info_age(link_id) >= d.info_age(link_id):
+#                        DEBUG:
+#                        if c.isFromFleet() and l.getID() in c.getRoute():
+#                            print '\t%s: disregarded info of %s from %s. (age_inc, age_curr) = (%d, %d)' %\
+#                             (d.getId(), l.getID(), c.getId(), self.infoAge[c.getId()][l.getID()], self.infoAge[d.getId()][l.getID()])
+#                        END-DEBUG
+                        #print '\t%s disregarded, old info' % l
+                        continue
+                    #continue #<<slow already
                     #a malicious agent will disregard heavy load information (> 3* fftt)
-                    if d.isFromFleet() and self.msgTT[c.getId()][l.getID()] >= 3 * (l.getLength() / l.getSpeed()):
+                    if d.isFromFleet() and c.message[link_id] >= 3 * (the_link.getLength() / the_link.getSpeed()):
+                        #print '\t%s: Disregarded heavy load info of %s from %s' % (d.getId(), l.getID(), c.getId())
                         continue
-                    gamma = 1 if self.nogamma else self.decay(self.infoAge[c.getId()][l.getID()])
                     
-                    self.knownTT[d.getId()][l.getID()] = gamma * self.msgTT[c.getId()][l.getID()] + (1 - gamma) * self.knownTT[d.getId()][l.getID()] 
-                    self.infoAge[d.getId()][l.getID()] = self.infoAge[c.getId()][l.getID()]
+                    gamma = 1 if self.nogamma else self.decay(c.info_age(link_id))
+                    newTT = gamma * c.message[link_id] + (1 - gamma) * d.known_travel_time(link_id) #self.knownTT[d.getId()][l.getID()]
+                    #continue
+                    #DEBUG
+                    #print '%s: using %s from %s for %s' % (d.getId(), newTT, c.getId(), l.getID())
+                    
+                    d.set_known_travel_time(l, newTT) #self.knownTT[d.getId()][l.getID()] = newTT
+                    d.set_info_age(l, c.info_age(link_id)) # self.infoAge[d.getId()][l.getID()] = self.infoAge[c.getId()][l.getID()]
                     
                         
     def decay(self,infoAge):
-        """
+        '''
         Returns the factor that exponentially decay the information relevance
         given its age
-        """
+        
+        '''
         a = 2.7182818284590451 #euler's
         #when infoAge approaches 60, decay approaches zero
         return pow(a, -infoAge / self.beta)
     
     def replanRoutes(self):
-        """
+        '''
         Checks the replan conditions and recalculate drivers' routes, if needed
-        """
         
+        '''
+        #print 'Replan procedure...'
         for d in self.drivers.getDriverList():
             # does not try replanning if it is disabled, if drv is not on trip, 
             # if driver just exited a link or if current edge is internal
             
             if not d.canReplan() or not d.onTrip() or d.changedLink() or not d._isValidEdge(d.currentEdge()):
-                continue
+                continue    
             
-            td = d.currentTravelTime()
+            '''
+            ### new replan ###
+            if d.currentEdge() != d.getDestination() and d._isValidEdge(d.currentEdge()):
+                
+                #current_route = traci.vehicle.getRoute(d.id)
+                route_until_dest = d.remainingTripLinks()#d.getRoute()[d.getRoute().index(d.currentEdge()):]
+                
+                
+                new_route = dijkstra(
+                    self.roadNetwork, 
+                    self.roadNetwork.getEdge(d.currentEdge()), 
+                    self.roadNetwork.getEdge(d.getDestination()),
+                    lambda edge: d.known_travel_time(edge.getID()) # self.knownTT[d.getId()][edge.getID()]
+                )
+                
+                new_route_edg_ids = [e.getID() for e in new_route]
+                
+                #print '%s (%d, %d)' % (d.getId(), self.routeCost(d, route_until_dest), self.routeCost(d, new_route_edg_ids))
+                
+                if self.routeCost(d, route_until_dest) > d.acceptableDelay() * self.routeCost(d, new_route_edg_ids):
+                    #print '%s replanned to %s ' % (d.getId(), new_route_edg_ids)
+                    d.setRoute(d.traversedTripLinks() + [e.encode('utf-8') for e in new_route_edg_ids])
+                    d.incReplanNumber()
+                    #print 'Vehicle %s has new route. Old cost: %s. New cost %s.' % (d.id, self.route_cost(route_until_dest), self.route_cost(new_route_edg_ids))
+            
+            '''
+            ### old_replan ###
+            
+            #td = d.currentTravelTime()
             remaining = d.remainingTripLinks()
             
-            #print remaining
-
-            if td + sum([self.knownTT[d.getId()][j] for j in remaining]) >\
-             d.acceptableDelay() * d.estimatedTT():
+#            if td + sum([d.known_travel_time(j) for j in remaining]) >\
+            actual_remaining_cost = sum([d.known_travel_time(j) for j in remaining])
+            estimt_remaining_cost = sum([d.estimatedTTs[j] for j in remaining])
+            
+            if int(actual_remaining_cost) > int(d.acceptableDelay() * estimt_remaining_cost):
                 #print d.getId(), 'will replan' 
                 route = dijkstra(
                     self.roadNetwork, 
                     self.roadNetwork.getEdge(d.currentEdge()), 
                     self.roadNetwork.getEdge(d.getDestination()),
-                    lambda edge: self.knownTT[d.getId()][edge.getID()] #need to make sure lambda is OK
+                    lambda edge: d.known_travel_time(edge.getID()) #need to make sure lambda is OK
                 )
                 #need to add the vehicles before, right?
                 edges = [edge.getID().encode('utf-8') for edge in route]
-                #print 'recalc.ed route:', edges
                 
                 d.updateETT(edges, self.knownTT[d.getId()])
-                #update ESTIMATED TT
                 
-                d.setRoute(d.traversedTripLinks() + edges)
-                d.incReplanNumber()
-                #print d.getId(), '\'s new route ', d.getRoute()
-                #traci.insert(route)
-            
-#            else:
-#                print d.getId(), 'won\'t replan'
+                if (d.getRoute() != d.traversedTripLinks() + edges):
+                    if sum([d.known_travel_time(l) for l in d.getRoute()]) < sum([d.known_travel_time(l) for l in d.traversedTripLinks() + edges]):
+                        
+                        print 'WARNING:', d.getId(), ' is about to change to a more expensive route!'
+                        print 'oldroute:', d.getRoute(), '- cost:', [d.known_travel_time(l) for l in d.getRoute()]
+                        print 'newroute:',  d.traversedTripLinks() + edges, ' - cost:', [d.known_travel_time(l) for l in d.traversedTripLinks() + edges]
+                        print 'current:', d.currentEdge(), ' - remaining:', remaining, ' - newpart:', [l.getID() for l in route]
+                        print 'rmncost > delay * ett: %s > %s * %s -- %s --- %d > %d' %\
+                        (int(sum([d.known_travel_time(j) for j in remaining])), 
+                         d.acceptableDelay(), int(sum([d.estimatedTTs[j] for j in remaining])), 
+                         int(actual_remaining_cost) > int(d.acceptableDelay() * estimt_remaining_cost),
+                         int(actual_remaining_cost), int(d.acceptableDelay() * estimt_remaining_cost) ) 
+                        
+#                    print d.getId() + ' has a new route!' 
+#                    print d.getRoute(), d.traversedTripLinks() + edges
+#                    print [self.knownTT[d.getId()][l] for l in d.getRoute()], [self.knownTT[d.getId()][l] for l in d.traversedTripLinks() + edges]
+#                    print sum([self.knownTT[d.getId()][l] for l in d.getRoute()]), sum([self.knownTT[d.getId()][l] for l in d.traversedTripLinks() + edges])
+                    
+                    d.setRoute(d.traversedTripLinks() + edges)
+                    d.incReplanNumber()
+                    #print d.getId(), 'has replanned'
+        
+    
+    def routeCost(self, driver, route):
+        '''
+        Returns the cost of the edges for the given driver
+        
+        '''
+        return sum([self.knownTT[driver.getId()][e] for e in route])
                 
     def __debugMessages(self):
         for drv,line in self.msgTT.iteritems():
@@ -436,7 +593,6 @@ class Iterations(object):
                 print lnk,'\t',col,'\t',self.infoAge[drv][lnk]
         
 def evaluate_edge(edge):
-    #print type(edge)
     return edge.getLength() / edge.getLaneNumber()
 
 def debugMatrixPair(matrix, matrix2, outStream = sys.stdout):
@@ -451,15 +607,8 @@ def dump_matrix(matrix, outStream = sys.stdout):
     
     for key,line in matrix.iteritems():
         strLine = ''
-        #print line
-        #exit()
-        #print '\t'.join(map(str,line))
-        #print '\t'.join(map(str,key))
         
         for colKey,col in line.iteritems():
             strLine += str(col) + '\t'
         outStream.write(strLine + '\n')
         
-#if __name__ == '__main__':
-#    app = Iterations(sys.argv)
-#    app.run()
