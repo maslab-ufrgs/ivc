@@ -1,3 +1,8 @@
+'''
+Contains the Iterations class, which is responsible for running
+an IVC experiment.
+
+'''
 import logging, sys, os
 import traci, sumolib
 from time import time

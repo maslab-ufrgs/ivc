@@ -1,3 +1,9 @@
+'''
+Contains classes to avoid overload in the road networks
+
+Can be used as a standalone or imported in another script
+
+'''
 from optparse import OptionParser, OptionGroup
 import logging, sys, os, random
 import traci, sumolib

@@ -1,9 +1,12 @@
 '''
+This is the main script. The one to be called for the execution
+of IVC experiments
+
 Created on 05/10/2012
 
 @author: artavares
-'''
 
+'''
 import sys, logging
 from optparse import OptionParser, OptionGroup
 from iterations import Iterations
@@ -14,7 +17,7 @@ def readOptions(argv):
     Reads and verifies command line options.
     
     """
-    parser = OptionParser()
+    parser = OptionParser(description='''Executes an IVC experiment. Please pass experiment parameters via config. file''')
     registerOptions(parser)
     (options, args) = parser.parse_args(argv)
     checkOptions(options, args, parser)

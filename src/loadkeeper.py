@@ -1,3 +1,8 @@
+'''
+Script kept in ivcproject for reference only. Please use
+loadkeeper.py from NetPopulate project
+
+'''
 from optparse import OptionParser, OptionGroup
 import logging, sys, os, random
 import traci, sumolib

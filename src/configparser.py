@@ -1,9 +1,11 @@
 '''
+Contains the class that parses the .xml experiment configuration file
+
 Created on Feb 1, 2013
 
 @author: anderson
-'''
 
+'''
 import os
 import xml.etree.ElementTree as ET
 

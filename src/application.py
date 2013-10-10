@@ -1,3 +1,7 @@
+'''
+This script is no longer used. Use ivcexperiment.py instead.
+
+'''
 from optparse import OptionParser, OptionGroup
 import logging, sys, os
 import traci, sumolib

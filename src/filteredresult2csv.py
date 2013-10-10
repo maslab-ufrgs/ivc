@@ -1,9 +1,21 @@
 '''
+Writes the values of some fields in a xml result file
+to a .csv file. Xml file must refer to driver performance (routeinfo/tripinfo)
+
+For example: suppose xml file contains:
+
+<tripinfo id='ctrl43' time='45' hops='4'/>
+
+Using this script with -f time,hops will generate a file with:
+
+#time,hops
+45,4
+
 Created on 14/01/2013
 
 @author: artavares
-'''
 
+'''
 import xml.etree.ElementTree as ET
 from optparse import OptionParser
 

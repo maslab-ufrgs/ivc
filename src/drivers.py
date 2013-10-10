@@ -1,4 +1,6 @@
 '''
+This module contains driver-related functions and classes
+
 Created on 31/08/2012
 
 @author: artavares
@@ -21,12 +23,20 @@ from search import dijkstra
 #from gpsdrivers import RoutedDriver
 
 def eucDist(x1, y1, x2, y2):
+    '''
+    Returns the euclidian distance between
+    (x1, y1) and (x2, y2)
+    
+    '''
     xDiff = x2 - x1
     yDiff = y2 - y1
     return math.sqrt(xDiff*xDiff + yDiff*yDiff)
 
 class Drivers(object):
+    '''
+    Class to handle the group of drivers used in an experiment
     
+    '''
     drvFileList = None
     roadNetwork = None
     
@@ -39,8 +49,8 @@ class Drivers(object):
         '''
         Parses the drivers' file and build the drivers list
         RoadNetwork is needed so that drivers will be able to build routes on it
-        '''
         
+        '''
         #Parsing is OK
         
         self.drvFileList = drvFileList
@@ -121,7 +131,6 @@ class Drivers(object):
         drv2,55,67,...
         
         '''
-        
         #makes a dict {id: driver,...} from the list of drivers
         drvdict = dict((d.getId(), d) for d in self.drvList)
         
@@ -212,6 +221,10 @@ class Drivers(object):
         self.drvList.append(drv)
         
     def allArrived(self):
+        '''
+        Returns true if all drivers have arrived to their destinations
+        
+        '''
         for drv in self.drvList:
             if not drv.arrived():
                 return False
@@ -223,7 +236,6 @@ class DriverTypes():
     Basically an enum encoding the driver types
     
     '''
-    
     FROM_FLEET      = 'fromFleet'
     IVC             = 'ivc'
     NOIVC           = 'noivc'
@@ -248,7 +260,11 @@ DriversColors = {
 }    
     
 class StandardDriver(object):
+    '''
+    Main driver class. Contains driver-related attributes 
+    and functions 
     
+    '''
     #type        = None
     roadNetwork = None
     tripNo      = 0
@@ -308,6 +324,11 @@ class StandardDriver(object):
     
     @property
     def newest_info_age(self):
+        '''
+        Returns the age of the newest information
+        that driver knows
+        
+        '''
         return self._newest_info_age
     
     def getSpeed(self):
@@ -355,6 +376,10 @@ class StandardDriver(object):
         return travDistance
     
     def build_message(self, fleet_links, mua, cheat_number):
+        '''
+        Builds a message for inter-vehicular communication
+        
+        '''
         self.message = {}#collections.defaultdict(dict)
         
         if self.isFromFleet():
@@ -416,15 +441,27 @@ class StandardDriver(object):
         return self.origin
     
     def setKnownTT(self, travel_times):
+        '''
+        Sets the knowledge base of this driver
+        
+        '''
         self.knownTT = travel_times
         
     def setInfoAges(self, info_ages):
+        '''
+        Set the ages of the information known by this driver
+        
+        '''
         self.info_ages = info_ages
         
     def knownTT(self, edge_id):
         return self.knownTT[edge_id]
     
     def known_travel_time(self, edge_id):
+        '''
+        Alias to knownTT
+        
+        '''
         return self.knownTT[edge_id]
     
     def info_age(self, edge_id):
@@ -619,6 +656,11 @@ class StandardDriver(object):
             self.estimatedTTs[j] = knownTT[j] 
     
     def changedLink(self):
+        '''
+        Returns whether this driver is on a different link that it was on the last
+        timestep
+        
+        '''
         #HACK to prevent bugs when driver leaves an internal edge and enters in another
         if not self._isValidEdge(self.linkOnLastTimestep) and not self._isValidEdge(self.currentLink):
             return False
@@ -730,7 +772,7 @@ class StandardDriver(object):
         #divides per 1000 to obtain tt in seconds
         #-1000 is because traci time starts at 1000 instead of zero
         return self.travelTime / 1000 # - 1000 +\
-             #traci.simulation.getCurrentTime() - self.timeEnteredLastLink
+        #traci.simulation.getCurrentTime() - self.timeEnteredLastLink
     
     def remainingTripLinks(self):
         '''
@@ -776,6 +818,10 @@ class StandardDriver(object):
         return currRoute
     
     def debug(self):
+        '''
+        Prints basic status of this driver 
+        
+        '''
         #prints id, currentLink, estimatedTT, lastTT, completedTripFraction, timeEnteredLastLink, 
         #currentTravelTime, currentSimulationtime
         print self.id +\
