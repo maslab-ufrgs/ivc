@@ -1,9 +1,20 @@
 '''
+Provides functions to draw districts and trips in a SUMO-gui window.
+
+A good way to use this script is to call it like:
+
+$ python -i drawdistricts.py [params]
+
+so that the user can call a function to draw the desired entity.
+
+Read each function documentation to know what it does.
+
+Note that this script has a hard-coded dependency with odpopulator module
+from NetPopulate project. 
+
 Created on May 30, 2013
 
 @author: anderson
-
-Draws the districts in a sumo-gui window
 
 '''
 import os
@@ -23,7 +34,16 @@ def randomcolor():
     return (rd.randint(0,255), rd.randint(0,255), rd.randint(0,255), 0)
 
 def drawdistricts(scale=1, fixedcolor = False):#netfile, tazfile, odmfile):
+    '''
+    Draws triangles in the origins and destinations of the map.
+    Upward triangles for origins and downward triangles for destinations of trips.
+    Size of triangle is proportional to the ammount of trips it generates
+    or receives.
+    Only one triangle is plotted by district (in case the district has
+    more than one origin or destination of trips, only one is
+    considered)
     
+    '''
     taztree = ET.parse(options.tazfile)
     net = sumolib.net.readNet(options.netfile)
     
@@ -58,6 +78,12 @@ def drawdistricts(scale=1, fixedcolor = False):#netfile, tazfile, odmfile):
     #traci.close()
     
 def drawtaztrip(taz_id):
+    '''
+    Draws an arrow for a connection between two districts. Arrow base points to
+    origin and head points to destination. Size of arrow base is proportional
+    to the number of trips between districts
+      
+    '''
     taztree = ET.parse(options.tazfile)
     net = sumolib.net.readNet(options.netfile)
     
@@ -91,8 +117,12 @@ def drawtaztrip(taz_id):
         
 def drawtaztrips():
     '''
-    Works only for POA-ARTERIALS
+    Draws an arrow for every connection between two districts. Arrow base points to
+    origin and head points to destination. Size of arrow base is proportional
+    to the number of trips between districts.
     
+    Tested only in poa-arterials
+      
     '''
     taztree = ET.parse(options.tazfile)
     net = sumolib.net.readNet(options.netfile)
@@ -126,6 +156,11 @@ def drawtaztrips():
             traci.simulationStep()
     
 def drawods(drvfile):
+    '''
+    Draws origins and destinations of trips for every vehicle
+    in a experiment result file
+    
+    '''
     ids = open(drvfile).readline().strip().split(',')
     if ids[-1] == '':
         ids = ids[:-1]
@@ -134,12 +169,19 @@ def drawods(drvfile):
         draw_orig_dest(i,options.roufile,options.netfile)
         
 def clear_polygons():
+    '''
+    Deletes all drawings made by this script
+    
+    '''
     for p in traci.polygon.getIDList():
         traci.polygon.remove(p)
     traci.simulationStep()
     
 def draw_orig_dest(veh_id, roufile, netfile):
+    '''
+    Draws an arrow from origin to destination of a vehicle
     
+    '''
     rtree = ET.parse(roufile)
     net = sumolib.net.readNet(netfile)
     
@@ -160,24 +202,13 @@ def draw_orig_dest(veh_id, roufile, netfile):
                 veh_id, pshape, vcolor, 1         
             )
             
-            #print oshape
-#            traci.polygon.add(
-#                  veh_id + '_o', 
-#                  oshape, vcolor, 1
-#            )
-#            
-#            traci.polygon.add(
-#                  veh_id + '_d', 
-#                  dshape, vcolor, 1
-#            )
-            
             traci.simulationStep()
             return
     
 
 def parse_args():
     
-    parser = OptionParser()
+    parser = OptionParser(description='''Draws districts in a sumo-gui window''')
             
     parser.add_option(
         '-n', '--netfile', type=str, help = 'path to the network file'

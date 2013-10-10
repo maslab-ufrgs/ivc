@@ -1,4 +1,12 @@
 '''
+This script reads experiment results from different directories and
+writes the average and standard deviation of these results
+
+Requires experiments to be organized in a certain 
+directory structure.
+
+TODO resume from here
+
 Created on May 18, 2013
 
 @author: anderson
@@ -40,7 +48,7 @@ def overallstats(exp_prefix, directory, num_experiments, num_iter, oprefix = '',
     
 def parse_args():
     
-    parser = OptionParser()
+    parser = OptionParser(description='''Calculates the mean and standard deviation of results of a series of experiments''')
             
     parser.add_option(
         '-e', '--exp-prefix', type=str, help = 'the prefix of the experiment name'

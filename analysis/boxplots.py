@@ -1,9 +1,11 @@
 '''
+Provides functions for generation of boxplots of drivers performance.
+
+Unlike boxes.py, path for data files can supplied
+
 Created on May 29, 2013
 
 @author: anderson
-
-boxplots all experiments: x is the #of mal agents
 
 '''
 import sys
@@ -14,6 +16,12 @@ from optparse import OptionParser
 
 def boxplots(exp_suffix, exp_series, output = 'boxplot.eps',
                  datafname = 'vsmlast.csv', header_size = 2):
+    '''
+    Generates a boxplot of drivers from a experiment series.
+    Requires that the directory structure of experiments follow a 
+    certain pattern
+    
+    '''
      
     #print [path_str % i for i in range(1,num_experiments+1)]
     #stores the experiment data in a big array
@@ -41,6 +49,11 @@ def boxplots(exp_suffix, exp_series, output = 'boxplot.eps',
 #    plotxmal('6k-2k', '1mal', 5, 10, header_size = 1)
 
 def bp_manysources(datafiles, output='boxplot-many.eps', header_size=2):
+    '''
+    Generates boxplots of the drivers of experiments whose data
+    files are specified in the first parameter (a comma-separated string)
+    
+    ''' 
     alldata = [np.genfromtxt(path, skip_header = header_size, delimiter=',') for path in datafiles.split(',')]
     
     baseticks = len(alldata)

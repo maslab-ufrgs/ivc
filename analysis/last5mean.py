@@ -1,4 +1,7 @@
 '''
+Outputs the mean of the performance in the last 5
+iterations.
+
 Created on May 29, 2013
 
 @author: anderson

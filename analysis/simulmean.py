@@ -1,9 +1,11 @@
 '''
+Averages the performance of each malicious driver along the iterations and outputs it.
+
 Created on May 29, 2013
 
 @author: anderson
-'''
 
+'''
 import sys
 import numpy as np
 from optparse import OptionParser
@@ -100,7 +102,7 @@ def parse_args():
     
     
 if __name__ == '__main__':
-    (options, args) = parse_args()
+    (options, args) = parse_args(description='''Averages the performance of each malicious driver along the iterations''')
     simulmean(
          options.data_file, options.output, options.header_size
     )

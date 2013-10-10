@@ -1,7 +1,20 @@
 '''
+Reads a result file with a series of values such as:
+
+ctrl21908,ctrl25031,ctrl24215,ctrl21456,ctrl25899,ctrl25934,ctrl26065,ctrl26222,ctrl26255,ctrl22289,
+fromFleet0,fromFleet0,fromFleet0,fromFleet0,fromFleet0,fromFleet0,fromFleet0,fromFleet0,fromFleet0,fromFleet0,
+1.00569,0.99811,1.68559,1.32182,1.03419,1.37795,1.01110,1.09316,1.79814,1.06880
+
+and outputs the average of the numeric row(s) (number of lines to be ignored
+must be informed):
+
+1.23945
+
+
 Created on May 30, 2013
 
 @author: anderson
+
 '''
 import numpy as np
 import sys

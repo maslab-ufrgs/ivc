@@ -1,4 +1,7 @@
 '''
+Outputs the average values of drivers performance 
+grouped per driver type (ivc-replan, noivc-noreplan, etc.)
+
 Created on 15/05/2013
 
 @author: artavares

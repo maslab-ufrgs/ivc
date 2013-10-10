@@ -1,10 +1,25 @@
+'''
+This script provides several functions to analyse and plot experiment data.
+
+A good way to use it is by calling:
+
+$ python -i someanalysis.py 
+
+This way, all script functions become available to use. Check the documentation
+of each function to know what it does.
+
+Many functions assume a certain directory structure (used in Anderson's dissertation).
+This is hardcoded and needs to be changed if a different structure is used
+
+'''
 import numpy as np
 import matplotlib.pyplot as plt
 from plotparams import *
 
 def distcorrmin(fname='vsblast5.csv'):
     '''
-    Plots the correlation between distance and vsblast
+    Prints and plots the correlation between distance and vsblast of the best performance fleets
+    on experiments performed for Anderson's dissertation
      
     '''
     if fname=='vsblast5.csv':
@@ -45,7 +60,8 @@ def distcorrmin(fname='vsblast5.csv'):
 
 def distcorrmax(fname='vsblast5.csv'):
     '''
-    Plots the correlation between distance and vsblast
+    Prints and plots the correlation between distance and vsblast of the worst performance fleets
+    on experiments performed for Anderson's dissertation
      
     '''
     if fname == 'vsblast5.csv':
@@ -101,6 +117,13 @@ def sortbyperformance(fname):
     
 
 def plot_vsnoivc(figsz=(8,5)):
+    '''
+    Plots the compared performance of drivers: 
+    performance_with_ivc / performance_without_ivc
+    
+    Assumes a given directory structure (used in Anderson's dissertation)
+    
+    '''
     data = [np.genfromtxt('6k-2k_%s/0mal/vsnoivc.csv' % i, skip_header=2, delimiter=',') for i in range(1,6)]
     
     vmean = np.mean(data,axis=0)
@@ -120,6 +143,11 @@ def plot_vsnoivc(figsz=(8,5)):
     plt.show()
     
 def plotodammount():
+    '''
+    Plots a bar graph with the ammounts of honest drivers with and without OD pair in
+    common with fleet drivers. Ammounts are hardcoded
+    
+    '''
     ammount_same = [6, 39, 54, 100, 136, 165, 328, 463]
     ammount_other= [1993,    1956,    1936,    1885,    1844,    1810,    1622,    1462]
     labels = [str(i) for i in [1,5,10,15,20,25,50,75]]
@@ -144,6 +172,11 @@ def plotodammount():
 #    rects2 = ax.bar(ind+width, womenMeans, width, color='y', yerr=womenStd)
 
 def findminmax(malsizes=[5,10,25,50], fname='vsblast5.csv'):
+    '''
+    Finds in which experiments are the best and worst fleet performances. Assumes
+    a given directory structure (used in Anderson's dissertation)
+    
+    '''
     for m in malsizes:
         mdata = [np.genfromtxt('6k-2k_%d/%dmal/%s' % (e,m,fname), skip_header=2, delimiter=',') for e in range(1,6)]
         #print mdata
@@ -153,6 +186,12 @@ def findminmax(malsizes=[5,10,25,50], fname='vsblast5.csv'):
     
     
 def last5(save=False, prefix='odcmp', malsizes = [5,10,25,50], exprange = range(1,6), axis=[0,5,0.8,1.8],txtoffset=.05, figsz=(8,5)):
+    '''
+    Plots the average fleet performance on the last 5 iterations of each experiment.
+    
+    Assumes a certain directory structure of experiments (used in Anderson's dissertation)
+     
+    '''
     alldata = []
     fig = plt.figure(figsize = figsz)
     ax = fig.add_subplot(111)
@@ -209,6 +248,11 @@ def last5(save=False, prefix='odcmp', malsizes = [5,10,25,50], exprange = range(
 
 
 def honestcmp(dprefix='', malsizes=[5,10,25,50]):
+    '''
+    Prints the average performance of honest drivers with and without OD pair in common 
+    with fleet drivers. 
+    
+    '''
     sdata = [np.genfromtxt('%s6k-2k_summary/odc_same_mean%dmal.csv' % (dprefix,i), skip_header=0, delimiter=',') for i in malsizes]
     odata = [np.genfromtxt('%s6k-2k_summary/odc_others_mean%dmal.csv' % (dprefix,i), skip_header=0, delimiter=',') for i in malsizes]
     sarray = np.array(sdata)
@@ -226,6 +270,11 @@ def plotmcavsmua(
     axis=[1,10,.9,1.6], save=False, prefix='vmodc', 
     malsizes=[5,10,25,50], figsz=(8,6), lcols=3
 ):
+    '''
+    Plots compared performance of malicious coordinated agents (fleet) vs.
+    malicious un-coordinated agents. Assumes a given directory structure.
+    
+    '''
     #malsizes = [5,10,25,50]
     savestr = 'vsmua' if prefix == 'vmodc' else 'vsbase'
     basestr = '$\sharp=individual$' if prefix == 'vmodc' else 'sem maliciosos'
@@ -315,6 +364,16 @@ def plotmcavsmua(
     plt.show()
     
 def plotmuavsbase2(axis=[1,10,0.8,2],save=False, malsizes=[5,10,25,50],figsz=(15,5),lcols=3):
+    '''
+    This is a more elaborate function than plotmuavsbase. It plots the compared performance 
+    of drivers in the presence of malicious un-coordinated agents vs. the situation
+    where all drivers are honest (base case). Three plots are generated: one for malicious
+    drivers, one for honest with OD pair in common with a malicious and one for the 
+    remaining honest drivers.
+    
+    Assumes a certain directory structure (used in Anderson's dissertation)
+    
+    '''
     #TODO: plot std in errorbars 
     #malsizes = [5,10,25,50]
     
@@ -441,6 +500,15 @@ def _plotmuavsbase1(axis = [1,10,.8,2.11], save=False, figsz=(8,5)):
         plt.show()
 
 def plotmuavsbase(mal_number, axis = [1,10,.8,2.11], save=False, figsz=(8,5)):
+    '''
+    This is a LESS elaborate function than plotmuavsbase2 (which should be rather used).
+    It plots the compared performance of drivers in the presence of malicious un-coordinated agents vs. the situation
+    where all drivers are honest (base case).
+    
+    Assumes a certain directory structure (used in Anderson's dissertation)
+    
+    '''
+    
     if mal_number == 1:
         _plotmuavsbase1(axis, save, figsz)
         return

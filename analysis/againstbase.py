@@ -1,7 +1,10 @@
 '''
+Plots the ratio of the performances contained in two files: 'current' / 'base'
+
 Created on May 23, 2013
 
 @author: anderson
+
 '''
 import sys
 from optparse import OptionParser

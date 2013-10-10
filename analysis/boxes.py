@@ -1,9 +1,12 @@
 '''
+Provides functions for generation of boxplots of drivers performance.
+
+It looks in specific experiment directories for data files. 
+This information is hardcoded.
+
 Created on May 29, 2013
 
 @author: anderson
-
-boxplots all experiments: x is the #of mal agents
 
 '''
 import sys
@@ -13,7 +16,12 @@ import numpy as np
 from optparse import OptionParser
 
 def maxboxes(output = None, fname = 'vsblast5.csv', axis=[0,5,.2,2.1], header_size = 2):
-     
+    '''
+    Generates boxplots of the drivers of experiments where 
+    their performance compared to the absence of 
+    malicious drivers was the worst
+    
+    ''' 
     #print [path_str % i for i in range(1,num_experiments+1)]
     #stores the experiment data in a big array
     basestr = 'sem maliciosos' if fname == 'vsblast5.csv' else '$\sharp=individual$'
@@ -89,7 +97,12 @@ def getmarkerscolors():
     return( ['d','o','+','^','h','1','p'], ['g', 'r', 'c', '#BF00BF','y'])
 
 def minboxes(output = None, fname = 'vsblast5.csv', axis=[0,5,.2,2.1], header_size = 2):
-     
+    '''
+    Generates boxplots of the drivers of experiments where 
+    their performance compared to the absence of 
+    malicious drivers was the best
+    
+    '''  
     #print [path_str % i for i in range(1,num_experiments+1)]
     #stores the experiment data in a big array
     basestr = 'sem maliciosos' if fname == 'vsblast5.csv' else '$\sharp=individual$'
@@ -165,6 +178,11 @@ def minboxes(output = None, fname = 'vsblast5.csv', axis=[0,5,.2,2.1], header_si
 #    plotxmal('6k-2k', '1mal', 5, 10, header_size = 1)
 
 def bp_manysources(datafiles, output='boxplot-many.eps', header_size=2):
+    '''
+    Generates boxplots of the drivers of experiments whose data
+    files are specified in the first parameter (a comma-separated string)
+    
+    ''' 
     alldata = [np.genfromtxt(path, skip_header = header_size, delimiter=',') for path in datafiles.split(',')]
     
     baseticks = len(alldata)

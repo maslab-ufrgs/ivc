@@ -1,4 +1,6 @@
 '''
+Writes the average performance of fleet drivers to an output file.
+
 Created on May 18, 2013
 
 @author: anderson
@@ -41,7 +43,7 @@ def onlyfleet(datafname,output='fleetdata.csv'):
     
 def parse_args():
     
-    parser = OptionParser()
+    parser = OptionParser(description='''Writes the average performance of fleet drivers to an output file.''')
             
     parser.add_option(
         '-e', '--exp-prefix', type=str, help = 'the prefix of the experiment name'

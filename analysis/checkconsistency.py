@@ -1,9 +1,9 @@
 '''
+Checks whether vehicle types are consistent in .rou.xml and resulting .csv files
+
 Created on May 27, 2013
 
 @author: anderson
-
-Checks whether vehicle types are consistent in .rou.xml and resulting .csv files
 
 '''
 import sys

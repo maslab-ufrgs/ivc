@@ -1,4 +1,11 @@
 '''
+This script reads a .rou.xml file and an experiment data file.
+It generates three outputs containing the average performance of:
+
+1) fleet drivers
+2) honest drivers with same origin and destination of a fleet driver
+3) honest drivers with different origin and destination of all fleet drivers 
+
 Created on May 24, 2013
 
 @author: anderson
@@ -114,7 +121,10 @@ def fleet_ods(routefile):
     return fleet_ods
             
 def parse_args():
-    parser = OptionParser()
+    parser = OptionParser(
+        description='''Separates performance of fleet drivers, honest drivers
+with same OD and honest drivers w/ different ODs.'''
+    )
             
     parser.add_option(
         '-r', '--route-file', type=str, help = 'path to the .rou.xml data'

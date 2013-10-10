@@ -1,9 +1,11 @@
 '''
+Checks whether vehicle types are consistent in .rou.xml and resulting .csv files
+
+IT DOES NOT CORRECT FILES, CONTRARILY TO WHAT NAME SAYS.
+
 Created on May 27, 2013
 
 @author: anderson
-
-Checks whether vehicle types are consistent in .rou.xml and resulting .csv files
 
 '''
 import sys
@@ -49,7 +51,9 @@ def checkconsistency(roufile, csvfile):
     print 'DONE. %d corrections made.' % num_adjusts
              
 def parse_args():
-    parser = OptionParser()
+    parser = OptionParser(
+        description='''Checks whether vehicle types are consistent in .rou.xml and resulting .csv files
+IT DOES NOT CORRECT FILES, CONTRARILY TO WHAT NAME SAYS.''')
             
     parser.add_option(
         '-r', '--route-file', type=str, help = 'path to the .rou.xml data'

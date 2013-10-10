@@ -1,9 +1,11 @@
 '''
+Plots all experiments of a given number -- x -- of malicious agents.
+Useful to compare different configurations with the same number of
+malicious agents 
+
 Created on May 29, 2013
 
 @author: anderson
-
-plots all experiments of a given number -- x -- of malicious agents
 
 '''
 import sys
