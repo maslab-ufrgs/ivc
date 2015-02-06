@@ -1,0 +1,7 @@
+<vehicleTypes>
+	<vehicleType fromFleet="yes" proportion="50" />
+	<vehicleType ivc="yes" replan="no" proportion="50" />
+	<vehicleType ivc="no" replan="no" proportion="25" />
+	<vehicleType ivc="yes" replan="yes" proportion="10" />
+	<vehicleType ivc="no" replan="yes" proportion="3" />
+</vehicleTypes>

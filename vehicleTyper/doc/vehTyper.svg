@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="vehTyper.svg"
+   inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Send"
+       style="overflow:visible;">
+      <path
+         id="path5230"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.3) rotate(180) translate(-2.3,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Send"
+       style="overflow:visible;">
+      <path
+         id="path5212"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.2) rotate(180) translate(6,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path5218"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path5200"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2937"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3145"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3359"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3781"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       y2="245.0005"
+       y1="11"
+       x2="128.9995"
+       x1="128.9995"
+       id="XMLID_6_"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.0000000;"
+         offset="0.0000000"
+         id="stop5111" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop5112" />
+    </linearGradient>
+    <inkscape:perspective
+       id="perspective3895"
+       inkscape:persp3d-origin="372.04724 : 184.12085 : 1"
+       inkscape:vp_z="744.09448 : 276.18127 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 276.18127 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3924"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4720"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-207.45998"
+     inkscape:cy="845.03203"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1360"
+     inkscape:window-height="693"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:snap-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       y="522.65643"
+       x="-118.29449"
+       height="191.92899"
+       width="729.3302"
+       id="rect4770"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <rect
+       y="-86.84623"
+       x="-420.20312"
+       height="191.92899"
+       width="533.3606"
+       id="rect4768"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <rect
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect4758"
+       width="719.22864"
+       height="182.16681"
+       x="155.66501"
+       y="-81.069588"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <image
+       y="799.40784"
+       x="-654.18793"
+       id="image3926"
+       height="184.27917"
+       width="195.39085"
+       xlink:href="file:///home/gauss/artavares/Dropbox/cliparts/blank_document.png" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2816"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="matrix(0.61834605,0,0,0.61834605,-453.50065,-337.40519)"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion2818"><rect
+           id="rect2820"
+           width="737.14313"
+           height="400"
+           x="68.571426"
+           y="403.79074" /></flowRegion><flowPara
+         id="flowPara2822"
+         style="fill:#008080">&lt;routes&gt;</flowPara><flowPara
+         id="flowPara2834"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2842">    &lt;vehicle</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2862"> id=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2894">&quot;v1&quot;</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2886"> depart=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2898">&quot;0.00&quot;</flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2850">&gt;</flowSpan></flowPara><flowPara
+         id="flowPara2824"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2858">        &lt;route</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2892"> edges=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2900">&quot;e1 e2 e3&quot;</flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2852">/&gt;</flowSpan></flowPara><flowPara
+         id="flowPara2826"
+         style="fill:#008080">    &lt;/vehicle&gt;</flowPara><flowPara
+         style="fill:#008080"
+         id="flowPara3344">     (...)</flowPara><flowPara
+         id="flowPara2840"
+         style="fill:#008080">&lt;/routes&gt;</flowPara><flowPara
+         id="flowPara2830" /><flowPara
+         id="flowPara2832" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2816-1"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="matrix(0.61834605,0,0,0.61834605,-1195.9243,545.92194)"><flowRegion
+         id="flowRegion2818-5"><rect
+           id="rect2820-2"
+           width="737.14313"
+           height="400"
+           x="68.571426"
+           y="403.79074" /></flowRegion><flowPara
+         id="flowPara2822-9"
+         style="fill:#008080">&lt;routes&gt;</flowPara><flowPara
+         id="flowPara2834-4"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2842-2">    &lt;vehicle</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2862-9"> id=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2894-6">&quot;v0&quot;</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2886-5"> depart=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2898-5">&quot;0.00&quot;</flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2850-3">&gt;</flowSpan></flowPara><flowPara
+         id="flowPara2824-9"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2858-0">        &lt;route</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2892-9"> edges=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2900-07">&quot;e1 e2 e3&quot;</flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2852-63">/&gt;</flowSpan></flowPara><flowPara
+         id="flowPara2826-8"
+         style="fill:#008080">    &lt;/vehicle&gt;</flowPara><flowPara
+         id="flowPara2828-5"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2846-7">    &lt;vehicle</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2868-4"> id=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2896-0">&quot;v1&quot;</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2888-5"> depart=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2902-1">&quot;1.00&quot;</flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2854-9">&gt;</flowSpan></flowPara><flowPara
+         id="flowPara2836-8"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2860-6">        &lt;route</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2890-9"> edges=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2904-9">&quot;e2 e3 e4&quot;</flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2856-5">/&gt;</flowSpan></flowPara><flowPara
+         id="flowPara2838-2"
+         style="fill:#008080">    &lt;/vehicle&gt;</flowPara><flowPara
+         id="flowPara2840-7"
+         style="fill:#008080">&lt;/routes&gt;</flowPara><flowPara
+         id="flowPara2830-9" /><flowPara
+         id="flowPara2832-2" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2816-9"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="matrix(0.61834605,0,0,0.61834605,-142.14769,275.99376)"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion2818-8"><rect
+           id="rect2820-5"
+           width="1171.0171"
+           height="303.92392"
+           x="68.571426"
+           y="403.79074" /></flowRegion><flowPara
+         id="flowPara2822-0"
+         style="fill:#008080">&lt;routes&gt;</flowPara><flowPara
+         id="flowPara2834-3"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2842-3">    &lt;vehicle</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2862-4"> id=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2894-9">&quot;v1&quot;</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2886-9"> depart=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2898-55">&quot;0.00&quot; <flowSpan
+   style="font-weight:bold;fill:#ff0000"
+   id="flowSpan3433">type=&quot;fromFleet&quot;</flowSpan></flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2850-4">&gt; </flowSpan></flowPara><flowPara
+         id="flowPara2824-7"><flowSpan
+           style="fill:#008080"
+           id="flowSpan2858-3">        &lt;route</flowSpan><flowSpan
+           style="fill:#5f5fd3"
+           id="flowSpan2892-8"> edges=</flowSpan><flowSpan
+           style="fill:#ff80b2"
+           id="flowSpan2900-0">&quot;e1 e2 e3&quot;</flowSpan><flowSpan
+           style="fill:#008080"
+           id="flowSpan2852-9">/&gt;</flowSpan></flowPara><flowPara
+         id="flowPara2826-5"
+         style="fill:#008080">    &lt;/vehicle&gt;</flowPara><flowPara
+         style="fill:#008080"
+         id="flowPara3344-8">     (...)</flowPara><flowPara
+         id="flowPara2840-9"
+         style="fill:#008080">&lt;/routes&gt;</flowPara><flowPara
+         id="flowPara2830-3" /><flowPara
+         id="flowPara2832-7" /></flowRoot>    <flowRoot
+       transform="matrix(0.58701652,0,0,0.5868948,118.61182,-315.15108)"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       id="flowRoot3441"
+       xml:space="preserve"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion3443"><rect
+           y="403.79074"
+           x="68.571426"
+           height="365.34531"
+           width="1280.066"
+           id="rect3445" /></flowRegion><flowPara
+         style="fill:#008080"
+         id="flowPara3447">&lt;vehicleTypes&gt;</flowPara><flowPara
+         id="flowPara3485"><flowSpan
+           id="flowSpan3451"
+           style="fill:#008080">    &lt;veh<flowSpan
+   style="font-size:39.99378586px"
+   id="flowSpan3560">icleType</flowSpan></flowSpan><flowSpan
+           id="flowSpan3453"
+           style="font-size:39.99378586px;font-weight:bold;fill:#ff0000"> fromFleet=</flowSpan><flowSpan
+           id="flowSpan3455"
+           style="font-size:39.99378586px;font-weight:bold;fill:#ff0000">&quot;yes&quot;</flowSpan><flowSpan
+           id="flowSpan3457"
+           style="font-size:39.99378586px;fill:#5f5fd3"> proportion=</flowSpan><flowSpan
+           id="flowSpan3459"
+           style="font-size:39.99378586px;fill:#ff80b2">&quot;5&quot; </flowSpan><flowSpan
+           style="font-size:39.99378586px;fill:#008080"
+           id="flowSpan3487">/&gt;</flowSpan></flowPara><flowPara
+         style="font-size:39.99378586px;fill:#008080"
+         id="flowPara3473">    &lt;vehicleType <flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3520">ivc=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3536">&quot;yes&quot;</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3528"> replan=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3540">&quot;no&quot;</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3512"> proportion=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3552">&quot;50&quot;</flowSpan> /&gt;</flowPara><flowPara
+         style="font-size:39.99378586px;fill:#008080"
+         id="flowPara3502">    &lt;vehicleType <flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3522">ivc=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3538">&quot;no&quot;</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3530"> replan=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3542">&quot;no&quot;</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3514"> proportion=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3554">&quot;50&quot;</flowSpan> /&gt;</flowPara><flowPara
+         style="font-size:39.99378586px;fill:#008080"
+         id="flowPara3508">    &lt;vehicleType <flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3524">ivc=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3544">&quot;yes&quot;</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3532"> replan=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3550">&quot;yes&quot;</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#5f5fd3;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3516"> proportion=</flowSpan><flowSpan
+   style="font-size:39.99378586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ff80b2;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Charter"
+   id="flowSpan3556">&quot;10&quot;</flowSpan> /&gt;</flowPara><flowPara
+         style="fill:#008080"
+         id="flowPara3477">&lt;/vehicleTypes&gt;</flowPara><flowPara
+         id="flowPara3479" /><flowPara
+         id="flowPara3481" /></flowRoot>    <g
+       id="g4728"
+       transform="translate(267.82746,-30.304576)"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66">
+      <image
+         xlink:href="file:///home/gauss/artavares/Dropbox/cliparts/terminal-icon-new.png"
+         width="289"
+         height="247"
+         id="image4722"
+         x="-176.82491"
+         y="187.4102" />
+      <rect
+         y="222.01678"
+         x="-125.25892"
+         height="70.710678"
+         width="94.954338"
+         id="rect4726"
+         style="color:#000000;fill:#373737;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <image
+       y="314.14886"
+       x="93.380737"
+       id="image3783"
+       height="94.375595"
+       width="94.375595"
+       xlink:href="file:///home/gauss/artavares/Dropbox/cliparts/python-icon-small.png"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <flowRoot
+       transform="matrix(0.94882407,0,0,0.94882407,83.462858,-151.71976)"
+       style="font-size:40px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#87decd;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       id="flowRoot3578"
+       xml:space="preserve"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion3580"><rect
+           y="403.79074"
+           x="68.571426"
+           height="117.38093"
+           width="193.14223"
+           id="rect3582"
+           style="text-align:center;text-anchor:middle;fill:#87decd" /></flowRegion><flowPara
+         style="text-align:center;text-anchor:middle;fill:#87decd"
+         id="flowPara3614">Ve<flowSpan
+   style="text-align:center;text-anchor:middle;fill:#87decd"
+   id="flowSpan4702">hicle</flowSpan></flowPara><flowPara
+         style="text-align:center;text-anchor:middle;fill:#87decd"
+         id="flowPara3678"><flowSpan
+   style="text-align:center;text-anchor:middle;fill:#87decd"
+   id="flowSpan4704">Typ</flowSpan>er</flowPara><flowPara
+         id="flowPara3616" /><flowPara
+         id="flowPara3618" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4732"
+       style="font-size:40px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="matrix(0.63967996,0,0,0.63967996,53.269058,-68.26042)"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion4734"><rect
+           style="text-align:center;text-anchor:middle;fill:#ffffff"
+           id="rect4736"
+           width="193.14223"
+           height="117.38093"
+           x="68.571426"
+           y="403.79074" /></flowRegion><flowPara
+         id="flowPara4746">&gt;_</flowPara><flowPara
+         id="flowPara4748" /></flowRoot>    <flowRoot
+       transform="matrix(0.61834605,0,0,0.61834605,646.37052,-371.29656)"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       id="flowRoot4772"
+       xml:space="preserve"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion4774"><rect
+           y="403.79074"
+           x="68.571426"
+           height="63.470955"
+           width="358.1395"
+           id="rect4776"
+           style="fill:#1a1a1a" /></flowRegion><flowPara
+         style="font-style:italic;fill:#1a1a1a"
+         id="flowPara4832">types.vtp.xml</flowPara><flowPara
+         id="flowPara4834"
+         style="font-style:italic" /><flowPara
+         id="flowPara4836"
+         style="font-style:italic" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4976"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="matrix(0.61834605,0,0,0.61834605,-203.95456,-367.07321)"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion4978"><rect
+           style="fill:#1a1a1a"
+           id="rect4980"
+           width="358.1395"
+           height="63.470955"
+           x="68.571426"
+           y="403.79074" /></flowRegion><flowPara
+         id="flowPara4982"
+         style="font-style:italic;fill:#1a1a1a">demand.rou.xml</flowPara><flowPara
+         style="font-style:italic"
+         id="flowPara4984" /><flowPara
+         style="font-style:italic"
+         id="flowPara4986" /></flowRoot>    <flowRoot
+       transform="matrix(0.61834605,0,0,0.61834605,348.43134,238.5513)"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       id="flowRoot4988"
+       xml:space="preserve"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"><flowRegion
+         id="flowRegion4990"><rect
+           y="403.79074"
+           x="68.571426"
+           height="63.470955"
+           width="358.1395"
+           id="rect4992"
+           style="fill:#1a1a1a" /></flowRegion><flowPara
+         style="font-style:italic;fill:#1a1a1a"
+         id="flowPara4994">output.rou.xml</flowPara><flowPara
+         id="flowPara4996"
+         style="font-style:italic" /><flowPara
+         id="flowPara4998"
+         style="font-style:italic" /></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+       d="m -79.66502,123.02184 0,169.70563 167.685325,0"
+       id="path5000"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 235.50255,280.60563 0,0"
+       id="path5006"
+       inkscape:connector-type="polyline"
+       inkscape:connection-end="#g4728"
+       inkscape:connection-start="#g4728"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <path
+       transform="matrix(0,0.40591145,-0.46644885,0,-766.40316,850.60757)"
+       d="m -510.5341,376.55569 -61.21224,0 -61.21224,0 30.60612,-53.01136 30.60612,-53.01136 30.60612,53.01136 30.60612,53.01136 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.5707963"
+       sodipodi:arg1="0.52359878"
+       sodipodi:r2="35.340904"
+       sodipodi:r1="70.681808"
+       sodipodi:cy="341.21478"
+       sodipodi:cx="-571.74634"
+       sodipodi:sides="3"
+       id="path7384"
+       style="color:#000000;fill:#000000;stroke:#000000;stroke-width:45.96342087;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       sodipodi:type="star" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+       d="m -1060.6602,448.29096 0,169.70563 167.68535,0"
+       id="path7386" />
+    <path
+       transform="matrix(0,0.40591145,0.46644885,0,268.53499,531.39937)"
+       d="m -510.5341,376.55569 -61.21224,0 -61.21224,0 30.60612,-53.01136 30.60612,-53.01136 30.60612,53.01136 30.60612,53.01136 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.5707963"
+       sodipodi:arg1="0.52359878"
+       sodipodi:r2="35.340904"
+       sodipodi:r1="70.681808"
+       sodipodi:cy="341.21478"
+       sodipodi:cx="-571.74634"
+       sodipodi:sides="3"
+       id="path7388"
+       style="color:#000000;fill:#b3b3b3;stroke:#999999;stroke-width:45.96342087;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       sodipodi:type="star"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <path
+       style="fill:none;stroke:#999999;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+       d="m 562.792,129.08276 0,169.70563 -167.68532,0"
+       id="path7390"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <path
+       sodipodi:type="star"
+       style="color:#000000;fill:#b3b3b3;stroke:#999999;stroke-width:45.96342087;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="path7396"
+       sodipodi:sides="3"
+       sodipodi:cx="-571.74634"
+       sodipodi:cy="341.21478"
+       sodipodi:r1="70.681808"
+       sodipodi:r2="35.340904"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m -510.5341,376.55569 -61.21224,0 -61.21224,0 30.60612,-53.01136 30.60612,-53.01136 30.60612,53.01136 30.60612,53.01136 z"
+       transform="matrix(0,0.40591145,-0.46644885,0,214.59199,525.33845)"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <path
+       transform="matrix(-0.40591145,0,0,-0.46644885,3.456505,623.76903)"
+       d="m -510.5341,376.55569 -61.21224,0 -61.21224,0 30.60612,-53.01136 30.60612,-53.01136 30.60612,53.01136 30.60612,53.01136 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.5707963"
+       sodipodi:arg1="0.52359878"
+       sodipodi:r2="35.340904"
+       sodipodi:r1="70.681808"
+       sodipodi:cy="341.21478"
+       sodipodi:cx="-571.74634"
+       sodipodi:sides="3"
+       id="path7406"
+       style="color:#000000;fill:#b3b3b3;stroke:#999999;stroke-width:45.96342087;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       sodipodi:type="star"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <path
+       style="fill:none;stroke:#999999;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+       d="m 234.04718,389.21279 0,99.1163"
+       id="path7408"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66" />
+    <path
+       style="fill:none;stroke:#999999;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+       d="m -79.66502,123.02184 0,169.70563 167.685325,0"
+       id="path7394"
+       inkscape:export-xdpi="41.66"
+       inkscape:export-ydpi="41.66"
+       inkscape:export-filename="/home/gauss/artavares/workspace/vehicleTyper/trunk/doc/vehTyper.png" />
+  </g>
+</svg>
